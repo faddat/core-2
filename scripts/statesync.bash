@@ -19,11 +19,12 @@ go install -ldflags '-w -s -X github.com/cosmos/cosmos-sdk/types.DBBackend=pebbl
 terrad init test
 
 # Get Genesis
-wget -O ~/.terra/config/genesis.json https://cloudflare-ipfs.com/ipfs/QmZAMcdu85Qr8saFuNpL9VaxVqqLGWNAs72RVFhchL9jWs
+wget -O ~/.terra/config/genesis.json https://phoenix-genesis.s3.us-west-1.amazonaws.com/genesis.json
+#cp genesis.json ~/.terra/config/genesis.json
 
 # Get "trust_hash" and "trust_height".
 INTERVAL=1000
-LATEST_HEIGHT="$(curl -s https://juno-rpc.polkachu.com/block | jq -r .result.block.header.height)"
+LATEST_HEIGHT="$(curl -s https://terra-rpc.polkachu.com/block | jq -r .result.block.header.height)"
 BLOCK_HEIGHT="$((LATEST_HEIGHT-INTERVAL))"
 TRUST_HASH="$(curl -s "https://juno-rpc.polkachu.com/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)"
 
